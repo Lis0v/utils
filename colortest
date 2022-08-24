@@ -1,0 +1,9 @@
+#!/bin/sh
+declare -i i=31
+declare -i j=41
+while [[ "$i" < 38 ]]
+do
+    echo -e "\e[0;${i}mdark\e[1;${i}m light \e[0;0;${j}mbackg"
+    i+=1
+    j+=1
+done
