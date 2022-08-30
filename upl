@@ -1,3 +1,0 @@
-#!/bin/bash
-read -p "File name: " file &&
-sudo avrdude -p m328p -c arduino -P /dev/serial/by-id/usb-1a86_USB2.0-Serial-if00-port0 -U flash:w:$file
