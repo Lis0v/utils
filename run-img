@@ -1,0 +1,6 @@
+#!/bin/sh
+qemu-img create -f qcow2 $1.qcow2 $2 &&
+qemu-system-x86_64 -hda *.qcow2 -cdrom *.iso -boot d &
+sleep 1 &
+vncviewer :5900 &&
+killall qemu-system-x86_64

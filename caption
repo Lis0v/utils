@@ -1,0 +1,15 @@
+#!/bin/bash
+source=$1
+caption=$2
+: ${1?"Usage: $0 anim.gif overlay.gif [output.gif]"}
+: ${2?"Usage: $0 anim.gif overlay.gif [output.gif]"}
+
+fnsource=$(basename "$source" .gif)
+fncaption=$(basename "$caption" .gif)
+
+output=${3:-"$fnsource-$fncaption.gif"}
+
+gifsicle -E $source
+for f in *.gif.*; do composite $caption $f $f; done
+gifsicle --loopcount *.gif.* > $output
+rm *.gif.*
