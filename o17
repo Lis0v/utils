@@ -1,0 +1,20 @@
+#!/bin/bash
+curl -s -o $1.html https://zsem.edu.pl/plany/plany/$1.html
+grep -E '&nbsp|class="g"|class="p"|<th|CKZ' $1.html | 
+sed "
+s/.*p\">/|/g;
+s/<\/.*s\">/ /g;
+s/<\/a*.*/|/g;
+s/.*g\">//g;
+s/.*&nbsp;/|-/g;
+s/<th>/|/g;
+s/|Nr|//g;
+s/<td.*>/|/g;
+0,/ *|/{s/ *|//};
+1d
+" > ./$1.cache
+sed ':a;N;$!ba;s/\n/\t/g ; s/..:..-..:../\n& /g' ./$1.cache |
+column -t -s "|"
+rm ./$1.cache ./$1.html
+
+# wyswietla tylko ostatnie grupy
